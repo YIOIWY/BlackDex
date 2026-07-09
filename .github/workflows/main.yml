@@ -25,7 +25,7 @@ jobs:
     - name: Setup Android NDK
       uses: android-actions/setup-android@v3
 
-    # 4. 关键一步：将 JDK 切换回 11（为了适配 BlackDex 的老版本 Gradle）
+    # 4. 将 JDK 切换回 11（适配 BlackDex 的老版本 Gradle 构建工具）
     - name: Switch to JDK 11 for building
       uses: actions/setup-java@v4
       with:
@@ -41,9 +41,9 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
-    # 7. 上传编译好的所有架构 APK
+    # 7. 全盘扫描并上传编译好的所有架构 APK
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: blackdex-apks
-        path: app/build/outputs/apk/debug/**/*.apk
+        path: "**/build/outputs/apk/**/*.apk"
